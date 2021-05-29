@@ -1,0 +1,16 @@
+**/.idea
+**/*.iml
+**/*.bak
+**/*.log
+**/*.orig
+**/*.versionsBackup
+**/target
+/keystores
+*.cer
+*.p12
+**/logs
+**/pid
+**/.gradle
+**/*.DS_Store
+release.properties
+
