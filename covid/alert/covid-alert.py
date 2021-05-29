@@ -33,8 +33,8 @@ def get_for_seven_days(start_date):
     url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict"
     # params = {"district_id": 571, "date": start_date.strftime("%d-%m-%Y")}
     # params = {"district_id": 265, "date": start_date.strftime("%d-%m-%Y")} #banglor -urban
-    # params = {"district_id": 276, "date": start_date.strftime("%d-%m-%Y")}  # banglore rural
-    params = {"district_id": 193, "date": start_date.strftime("%d-%m-%Y")} #ambala
+    params = {"district_id": 276, "date": start_date.strftime("%d-%m-%Y")}  # banglore rural
+    # params = {"district_id": 193, "date": start_date.strftime("%d-%m-%Y")} #ambala
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0"}
     resp = requests.get(url, params=params, headers=headers)
     data = resp.json()
