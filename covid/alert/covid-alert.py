@@ -120,7 +120,11 @@ if __name__ == '__main__':
         #         or datetime_india.hour == '9' \
         #         or datetime_india.hour == '10' \
         #         or datetime_india.hour == '11':
-        processor(datetime_india)
+        try:
+            processor(datetime_india)
+        except BaseException as error:
+            print('An exception occurred: {}'.format(error))
+            processor(datetime_india)
         time.sleep(4)
         # these APIs are subject to a rate limit of 100 API calls per 5 minutes per IP
         # else:
