@@ -8,6 +8,18 @@ import pytz
 import requests
 
 
+class LogColors:
+    HEADER = '\033[95m'
+    OK_BLUE = '\033[94m'
+    OK_GREEN = '\x1b[6;30;42m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\x1b[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    INFO = '\x1b[1;30;47m'
+
+
 def create_session_info(center, session):
     return {"name": center["name"],
             "date": session["date"],
@@ -63,7 +75,11 @@ def notify(title, subtitle, message):
 
 
 def processor(date_search):
-    print(get_for_seven_days(datetime.today()))
+
+    result = get_for_seven_days(datetime.today())
+    if result:
+        print(LogColors.BOLD, result, LogColors.ENDC)
+
     # content = "\n".join([create_output(session_info) for session_info in get_by_pin_code(133001, dateSearch)])
     content = "\n".join([create_output(session_info) for session_info in get_for_seven_days(date_search)])
 
@@ -71,7 +87,7 @@ def processor(date_search):
     password = os.environ.get('GMAIL_PASS')
 
     if not content:
-        print("->>>> No availability")
+        print(LogColors.HEADER, "COVID-19: No vaccine availability", LogColors.ENDC)
     else:
         # Calling the function
         notify(title='Vaccination Slot Open',
@@ -90,26 +106,18 @@ def processor(date_search):
 
 
 if __name__ == '__main__':
-    while 1:
+    while True:
         tz_India = pytz.timezone('Asia/Kolkata')
-        datetime_India = datetime.now(tz_India)
-        processor(datetime_India)
-        dt_string = datetime_India.strftime("%d/%m/%Y %H:%M:%S")
-        print("date and time =", dt_string)
+        datetime_india = datetime.now(tz_India)
+        dt_string = datetime_india.strftime("%d-%m-%Y %H:%M:%S")
+        print("Service call -> date and time =", dt_string)
         # print(pytz.all_timezones)
-        # if datetime_India.hour == '0' \
-        #         or datetime_India.hour == '1' \
-        #         or datetime_India.hour == '2' \
-        #         or datetime_India.hour == '3' \
-        #         or datetime_India.hour == '4' \
-        #         or datetime_India.hour == '5' \
-        #         or datetime_India.hour == '6' \
-        #         or datetime_India.hour == '7' \
-        #         or datetime_India.hour == '8' \
-        #         or datetime_India.hour == '9' \
-        #         or datetime_India.hour == '10' \
-        #         or datetime_India.hour == '11':
-        processor(datetime_India)
+        # if datetime_India.hour == '7' \
+        #         or datetime_india.hour == '8' \
+        #         or datetime_india.hour == '9' \
+        #         or datetime_india.hour == '10' \
+        #         or datetime_india.hour == '11':
+        processor(datetime_india)
         time.sleep(4)
         # these APIs are subject to a rate limit of 100 API calls per 5 minutes per IP
         # else:
