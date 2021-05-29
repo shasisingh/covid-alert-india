@@ -41,6 +41,10 @@ def is_eighteen_plus(session):
     return session["age_limit"] == 18
 
 
+def is_senior_citizens(session):
+    return session["age_limit"] == 45
+
+
 def get_for_seven_days(start_date):
     url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict"
     # params = {"district_id": 571, "date": start_date.strftime("%d-%m-%Y")}
@@ -75,7 +79,6 @@ def notify(title, subtitle, message):
 
 
 def processor(date_search):
-
     result = get_for_seven_days(datetime.today())
     if result:
         print(LogColors.BOLD, result, LogColors.ENDC)
